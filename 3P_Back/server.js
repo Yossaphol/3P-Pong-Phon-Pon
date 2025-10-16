@@ -6,6 +6,7 @@ require('dotenv').config()
 
 //routes
 const promotionRoute = require('./routes/promotion');
+const customerRoute = require('./routes/customer');
 
 //env data
 const port = process.env.PORT;
@@ -16,7 +17,8 @@ app.get("/", (req, res)=>{
 
 app.use(cors(corsOption)); //cors
 
-app.use('/api/promotion', promotionRoute);
+app.use('/api/promotion', promotionRoute); //ส่งโปรโมชั่น
+app.use('/api/customer', customerRoute); //รับข้อมูลลูกค้าจาก Portal บันทึกลง db, ให้ข้อมูลกับ manager
 
 app.listen(port, ()=>{
 	console.log(`Server is running on port ${port}`);
