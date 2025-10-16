@@ -1,8 +1,8 @@
-const whiteList = ['http://127.0.0.1:5173/'] //process.env.frontend_url
+const whiteList = [process.env.FRONTEND_URL]
 
 const corsOption = {
 	origin: (origin, callback) =>{
-		if (whiteList.includes(origin)) //ใช้เงื่อนไขนี้ถ้าต้องการใช้เครื่องมือเทส API: if (whiteList.includes(origin) || !origin) {...}
+		if (whiteList.includes(origin) || !origin) 
 		{
 			callback(null, true);
 		}

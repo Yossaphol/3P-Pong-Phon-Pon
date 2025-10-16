@@ -3,16 +3,20 @@ const app = express();
 const cors = require('cors');
 const corsOption = require('./config/corsOptions');
 require('dotenv').config()
+
+//routes
+const promotionRoute = require('./routes/promotion');
+
 //env data
-const port = 3000; //process.env.port
+const port = process.env.PORT;
 
 app.get("/", (req, res)=>{
 	res.send("3P มาแว้ว")
 })
 
-app.use(cors(corsOption));
+app.use(cors(corsOption)); //cors
 
-//app.use('/api/auth', )
+app.use('/api/promotion', promotionRoute);
 
 app.listen(port, ()=>{
 	console.log(`Server is running on port ${port}`);
