@@ -6,13 +6,16 @@ require('dotenv').config()
 const mongoose = require('mongoose');
 const connectDB = require('./config/db');
 
+//json body parsing
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 //connnect database
 connectDB();
 
-//routes
-const promotionRoute = require('./routes/promotion');
-const customerRoute = require('./routes/customer');
+//api
+const promotionRoute = require('./api/promotion');
+const customerRoute = require('./api/customer');
 
 //env data
 const port = process.env.PORT;
@@ -28,7 +31,7 @@ app.use('/api/customer', customerRoute); //รับข้อมูลลูก�
 
 
 app.use((req, res)=>{
-	res.status(404);
+	res.status(404).send("404 not found");
 })
 
 mongoose.connection.once('open', ()=>{

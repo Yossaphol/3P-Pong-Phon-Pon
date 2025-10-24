@@ -12,12 +12,23 @@ exports.customerDetail = async (req, res)=>{ //ให้ข้อมูลลู
 }
 
 exports.getCustomer = async (req, res) => { //รับลูกค้าจากหน้าบ้าน และบันทึกลง db
-	//const data = req.body;
+	try
+	{
+		const data = req.body;
 
-	// if (!data.name)
-	// {
-	// 	return res.status(404).json({"message":"Please validate your data and try again"});
-	// }
-
-	res.json({message: 'customer receieved'});
+		if (!data.username || !data.userid)
+		{
+			return res.status(400).json({"message":"Please validate your data and try again"});
+		}
+		const newCustomer = new User({
+			userId : data.userid,
+			username : data.username
+		})
+		await newCustomer.save();
+		res.json({message: 'customer receieved'});
+	}
+	catch (err)
+	{
+		res.status(500).json({message: err.message});
+	}
 }
