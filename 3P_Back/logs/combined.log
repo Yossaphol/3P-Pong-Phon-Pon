@@ -1,0 +1,4 @@
+{"level":"info","message":"Server process starting...","service":"3P-api","timestamp":"2025-10-30 22:46:39"}
+{"level":"info","message":"Connected to MongoDB","service":"3P-api","timestamp":"2025-10-30 22:46:40"}
+{"level":"info","message":"Server is running on port 2549","service":"3P-api","timestamp":"2025-10-30 22:46:40"}
+{"level":"info","message":"Received data: {\n  \"userId\": \"U878770ce15c7c1e592d1289e4db1b6d0\",\n  \"name\": \"Phiphop\",\n  \"timestamp\": \"2025-10-30T15:27:43.629Z\"\n}","service":"3P-api","timestamp":"2025-10-30 22:46:55"}
