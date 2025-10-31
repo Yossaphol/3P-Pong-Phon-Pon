@@ -1,47 +1,3 @@
-// const express = require('express');
-// const app = express();
-// const cors = require('cors');
-// const corsOption = require('./config/corsOptions');
-// require('dotenv').config()
-// const mongoose = require('mongoose');
-// const connectDB = require('./config/db');
-// const logger = require('./logger');
-
-// //json body parsing
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
-
-
-// //connnect database
-// connectDB();
-
-// //api
-// const promotionRoute = require('./api/promotion');
-// const customerRoute = require('./api/customer');
-
-// //env data
-// const port = process.env.PORT;
-
-// app.get("/", (req, res)=>{
-// 	res.send("3P มาแว้ว")
-// })
-
-// app.use(cors(corsOption)); //cors
-
-// app.use('/api/promotion', promotionRoute); //ส่งโปรโมชั่น
-// app.use('/api/customer', customerRoute); //รับข้อมูลลูกค้าจาก Portal บันทึกลง db, ให้ข้อมูลกับ manager
-
-
-// // app.use((req, res)=>{
-// // 	res.status(404).send("404 not found");
-// // })
-
-// mongoose.connection.once('open', ()=>{
-// 	logger('Connected to MongoDB');
-// 	app.listen(port, ()=>{	logger(`Server is running on port ${port}`);})
-// })
-
-
 const express = require('express');
 const app = express();
 const cors = require('cors');
@@ -50,6 +6,8 @@ require('dotenv').config();
 const mongoose =require('mongoose');
 const connectDB = require('./config/db');
 const logger = require('./logger'); // <-- Logger is imported
+const axios = require('axios');
+
 
 logger.info('Server process starting...'); // <-- Good to log when it starts
 
@@ -63,6 +21,40 @@ connectDB();
 //api
 const promotionRoute = require('./api/promotion');
 const customerRoute = require('./api/customer');
+app.post("/send-coupon", async (req, res) => {
+    try {
+        const { userId, coupon } = req.body;
+
+        console.log("📩 Received coupon:", req.body);
+
+        // ✅ ส่งข้อความเข้า LINE Messaging API
+        await axios.post(
+            "https://api.line.me/v2/bot/message/push",
+            {
+                to: userId,
+                messages: [
+                    {
+                        type: "text",
+                        text: `🎉 คุณได้รับคูปอง: ${coupon}`
+                    }
+                ]
+            },
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${process.env.LINE_CHANNEL_ACCESS_TOKEN}`
+                }
+            }
+        );
+
+        res.json({ message: "✅ Coupon sent to LINE user!" });
+        
+    } catch (err) {
+        console.error("❌ LINE API error:", err.response?.data || err.message);
+        res.status(500).json({ error: "Failed to send coupon via LINE" });
+    }
+});
+
 
 //env data
 const port = process.env.PORT;
@@ -85,6 +77,7 @@ app.use('/api/customer', customerRoute); //รับข้อมูลลูก�
 
 // Optional: A basic error handler
 // This will catch errors from your routes
+
 app.use((err, req, res, next) => {
     // Log the full error
     logger.error(err.message, { stack: err.stack, url: req.originalUrl });

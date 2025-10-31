@@ -41,17 +41,25 @@
         customers = customers.map(customer => ({ ...customer, selected: checkedAll }));
     }
 
-    function sendSelectedCustomers() {
-        const selectedCustomers = customers.filter(customer => customer.selected);
-        const couponData: sendCoupon = {
-            name: coupon.name,
-            details: coupon.details,
-            startDate: coupon.startDate,
-            endDate: coupon.endDate,
-            customers: selectedCustomers
-        };
-        console.log("Sending coupon data:", couponData);
-        // Here you can add the logic to send the couponData to your backend or API
+    async function sendSelectedCustomers() {
+      const selectedCustomers = customers.filter(customer => customer.selected);
+      const couponData: sendCoupon = {
+          name: coupon.name,
+          details: coupon.details,
+          startDate: coupon.startDate,
+          endDate: coupon.endDate,
+          customers: selectedCustomers
+      };
+
+      console.log("Sending coupon data:", couponData);
+
+      await fetch("http://localhost:3000/send-coupon", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(couponData)
+      });
+
+      alert("send coupon successfully");
     }
     // $inspect(customers);
 
