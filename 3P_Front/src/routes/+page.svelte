@@ -1,6 +1,21 @@
-<script>
-    import Mynav from '../components/nav.svelte'
+<script lang="ts">
+    import Mynav from '../components/nav.svelte';
     import Test from '../components/test.svelte';
+    import favicon from '$lib/assets/favicon.svg';
+    import tail from '../tailwind-css.svg';
+
+    let mainImg:HTMLDivElement;
+    let isFading = false; // state ควบคุม fade
+    async function changeImg(index:number) {
+      isFading = true;
+      if (index == 1) {
+        await new Promise((r) => setTimeout(r, 300));
+        mainImg.style = 
+        "background-image: url(https://images.squarespace-cdn.com/content/v1/60f1a490a90ed8713c41c36c/1629223610791-LCBJG5451DRKX4WOB4SP/37-design-powers-url-structure.jpeg)";
+      }
+      isFading = false;
+    }
+    // const mainImage = document.getElementById("mainImage");
 </script>
 
 <Mynav></Mynav>
@@ -27,16 +42,16 @@
         </p>
 
         <!-- Image Carousel/Gallery Placeholder -->
-        <div class="relative w-full h-80 bg-gray-200 rounded-lg flex items-center justify-between p-4 mb-8">
-          <div class="flex-grow flex items-center justify-center">
-            <p class="text-gray-500">Image Carousel Placeholder</p>
-          </div>
+        <div class="bg-gray-300">
+          <div class:opacity-0={isFading} bind:this={mainImg} class="transition-opacity duration-500 ease-in-out relative w-full h-80  rounded-lg flex items-center justify-between p-4 mb-2 bg-center bg-contain bg-no-repeat"></div>
         </div>
+
         <div class="flex justify-center space-x-4">
-          <div class="w-20 h-12 bg-gray-300 rounded-md cursor-pointer hover:bg-gray-400 transition-colors duration-200"></div>
-          <div class="w-20 h-12 bg-gray-300 rounded-md cursor-pointer hover:bg-gray-400 transition-colors duration-200"></div>
-          <div class="w-20 h-12 bg-gray-300 rounded-md cursor-pointer hover:bg-gray-400 transition-colors duration-200"></div>
+          <button onclick={() => changeImg(1)} class="thumbnail w-20 h-12 rounded-md cursor-pointer transition-colors duration-200">
+            <img class="rounded-md" src="https://images.squarespace-cdn.com/content/v1/60f1a490a90ed8713c41c36c/1629223610791-LCBJG5451DRKX4WOB4SP/37-design-powers-url-structure.jpeg" alt="">
+          </button>
         </div>
+
       </section>
 
       <!-- Project Details Section 2 (เพิ่มความยาวของหน้า) -->
@@ -73,8 +88,8 @@
         </p>
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             <div class="flex items-center space-x-3 bg-gray-50 p-4 rounded-md shadow-sm">
-                <img src="https://img.icons8.com/color/48/000000/react.png" alt="React" class="w-8 h-8"/>
-                <span class="font-medium text-gray-800">React.js</span>
+                <img src={favicon} alt="Svelte" class="w-8 h-8"/>
+                <span class="font-medium text-gray-800">Svelte</span>
             </div>
             <div class="flex items-center space-x-3 bg-gray-50 p-4 rounded-md shadow-sm">
                 <img src="https://img.icons8.com/color/48/000000/nodejs.png" alt="Node.js" class="w-8 h-8"/>
@@ -85,17 +100,10 @@
                 <span class="font-medium text-gray-800">MongoDB</span>
             </div>
             <div class="flex items-center space-x-3 bg-gray-50 p-4 rounded-md shadow-sm">
-                <img src="https://img.icons8.com/color/48/000000/tailwind-css.png" alt="Tailwind CSS" class="w-8 h-8"/>
+                <img src={tail} alt="Tailwind CSS" class="w-8 h-8"/>
                 <span class="font-medium text-gray-800">Tailwind CSS</span>
             </div>
-            <div class="flex items-center space-x-3 bg-gray-50 p-4 rounded-md shadow-sm">
-                <img src="https://img.icons8.com/color/48/000000/docker.png" alt="Docker" class="w-8 h-8"/>
-                <span class="font-medium text-gray-800">Docker</span>
-            </div>
-            <div class="flex items-center space-x-3 bg-gray-50 p-4 rounded-md shadow-sm">
-                <img src="https://img.icons8.com/color/48/000000/amazon-web-services.png" alt="AWS" class="w-8 h-8"/>
-                <span class="font-medium text-gray-800">AWS</span>
-            </div>
+
         </div>
       </section>
 
@@ -115,6 +123,13 @@
                 <div>
                     <div class="text-lg font-semibold text-gray-900">Jane Smith</div>
                     <div class="text-sm text-gray-600">Frontend Developer</div>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4 bg-gray-50 p-4 rounded-md shadow-sm">
+                <img class="h-16 w-16 rounded-full object-cover" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=4&w=144&h=144&q=80" alt="Team Member 3">
+                <div>
+                    <div class="text-lg font-semibold text-gray-900">Peter Jones</div>
+                    <div class="text-sm text-gray-600">Backend Developer</div>
                 </div>
             </div>
             <div class="flex items-center space-x-4 bg-gray-50 p-4 rounded-md shadow-sm">
