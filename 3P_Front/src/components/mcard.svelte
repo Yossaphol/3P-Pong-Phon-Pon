@@ -58,6 +58,11 @@
       });
 
       alert("send coupon successfully");
+      // ✅ Reset coupon store
+      coupon.name = "";
+      coupon.details = "";
+      coupon.startDate = "";
+      coupon.endDate = "";
     }
     $inspect(customers);
 

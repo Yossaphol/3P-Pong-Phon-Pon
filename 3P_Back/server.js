@@ -21,39 +21,76 @@ connectDB();
 //api
 const promotionRoute = require('./api/promotion');
 const customerRoute = require('./api/customer');
+// app.post("/send-coupon", async (req, res) => {
+//     try {
+//         const { userId, coupon } = req.body;
+
+//         console.log("📩 Received coupon:", req.body);
+
+//         // ✅ ส่งข้อความเข้า LINE Messaging API
+//         await axios.post(
+//             "https://api.line.me/v2/bot/message/push",
+//             {
+//                 to: userId,
+//                 messages: [
+//                     {
+//                         type: "text",
+//                         text: `🎉 คุณได้รับคูปอง: ${coupon}`
+//                     }
+//                 ]
+//             },
+//             {
+//                 headers: {
+//                     "Content-Type": "application/json",
+//                     Authorization: `Bearer ${process.env.LINE_CHANNEL_ACCESS_TOKEN}`
+//                 }
+//             }
+//         );
+
+//         res.json({ message: "✅ Coupon sent to LINE user!" });
+        
+//     } catch (err) {
+//         console.error("❌ LINE API error:", err.response?.data || err.message);
+//         res.status(500).json({ error: "Failed to send coupon via LINE" });
+//     }
+// });
 app.post("/send-coupon", async (req, res) => {
     try {
-        const { userId, coupon } = req.body;
+        const { name, details, startDate, endDate, customers } = req.body;
 
-        console.log("📩 Received coupon:", req.body);
+        console.log("📩 Received coupon data:", req.body);
 
-        // ✅ ส่งข้อความเข้า LINE Messaging API
-        await axios.post(
-            "https://api.line.me/v2/bot/message/push",
-            {
-                to: userId,
-                messages: [
-                    {
-                        type: "text",
-                        text: `🎉 คุณได้รับคูปอง: ${coupon}`
+        for (const customer of customers) {
+            await axios.post(
+                "https://api.line.me/v2/bot/message/push",
+                {
+                    to: customer.userId,
+                    messages: [
+                        {
+                            type: "text",
+                            text: `🎁 คุณได้รับคูปองใหม่!\n\n${name}\n${details}\n📅 ใช้ได้: ${startDate} - ${endDate}`
+                        }
+                    ]
+                },
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${process.env.LINE_CHANNEL_ACCESS_TOKEN}`
                     }
-                ]
-            },
-            {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${process.env.LINE_CHANNEL_ACCESS_TOKEN}`
                 }
-            }
-        );
+            );
 
-        res.json({ message: "✅ Coupon sent to LINE user!" });
-        
+            console.log(`✅ Sent to ${customer.userId}`);
+        }
+
+        res.json({ message: "✅ ส่งคูปองให้ทุกคนสำเร็จ!" });
+
     } catch (err) {
         console.error("❌ LINE API error:", err.response?.data || err.message);
-        res.status(500).json({ error: "Failed to send coupon via LINE" });
+        res.status(500).json({ error: "ส่งคูปองไม่สำเร็จ" });
     }
 });
+
 
 
 //env data
@@ -63,7 +100,8 @@ app.get("/", (req, res)=>{
     res.send("3P มาแว้ว");
 })
 
-app.use(cors(corsOption)); //cors
+app.use(cors());
+// app.use(cors(corsOption)); //cors
 
 app.use('/api/promotion', promotionRoute); //ส่งโปรโมชั่น
 app.use('/api/customer', customerRoute); //รับข้อมูลลูกค้าจาก Portal บันทึกลง db, ให้ข้อมูลกับ manager
