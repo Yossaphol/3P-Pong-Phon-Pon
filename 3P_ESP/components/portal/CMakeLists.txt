@@ -1,0 +1,19 @@
+idf_component_register(
+    SRCS
+        "portal.c"
+        "dns_hijack.c"
+        "mqtt_notify.c"
+    INCLUDE_DIRS
+        "."
+        "../../main"   # 👈 เพิ่มบรรทัดนี้ให้ portal มองเห็น header จาก main
+    REQUIRES
+        main
+        esp_http_server
+        esp_wifi
+        esp_netif
+        lwip
+        esp_timer
+        esp_http_client
+        mqtt
+        cjson
+)
