@@ -28,11 +28,9 @@
 
         <!-- Image Carousel/Gallery Placeholder -->
         <div class="relative w-full h-80 bg-gray-200 rounded-lg flex items-center justify-between p-4 mb-8">
-          
           <div class="flex-grow flex items-center justify-center">
             <p class="text-gray-500">Image Carousel Placeholder</p>
           </div>
-          
         </div>
         <div class="flex justify-center space-x-4">
           <div class="w-20 h-12 bg-gray-300 rounded-md cursor-pointer hover:bg-gray-400 transition-colors duration-200"></div>
