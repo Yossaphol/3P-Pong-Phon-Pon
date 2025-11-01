@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OffLearn Wi-Fi Login</title>
+  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      margin-top: 60px;
+      background: #fafafa;
+    }
+    h2 {
+      color: #222;
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 15px;
+      color: #555;
+      margin-bottom: 25px;
+    }
+    button {
+      background: #06c755;
+      color: white;
+      padding: 14px 32px;
+      border: none;
+      border-radius: 10px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    button:hover { opacity: 0.9; }
+  </style>
+</head>
+
+<body>
+  <h2>เข้าสู่ระบบ Wi-Fi ด้วย LINE</h2>
+  <p>กดปุ่มด้านล่างเพื่อเข้าสู่ระบบ</p>
+  <button id="loginBtn">Login ด้วย LINE</button>
+
+  <script>
+    const BACKEND_BASE = "https://bilgier-unabstractively-justine.ngrok-free.dev";
+    const BACKEND_NOTIFY_URL = `${BACKEND_BASE}/liff_notify`;
+    const DEFAULT_AP_IP = "192.168.4.1";
+    const LINE_OA_URL = "https://line.me/R/ti/p/@268wgdln";
+    const LIFF_ID = "2008301054-NWkx35W4";
+
+    function isInLineApp() {
+      return navigator.userAgent.toLowerCase().includes(" line/");
+    }
+
+    async function checkInternetAccess() {
+      try {
+        await fetch(BACKEND_NOTIFY_URL, { method: "HEAD", mode: "no-cors" });
+        return true;
+      } catch { return false; }
+    }
+
+    async function loginWithLIFF() {
+      try {
+        await liff.init({ liffId: LIFF_ID });
+
+        if (!liff.isLoggedIn()) {
+          liff.login();
+          return;
+        }
+
+        const profile = await liff.getProfile();
+        const payload = {
+          userId: profile.userId,
+          name: profile.displayName,
+          timestamp: new Date().toISOString(),
+        };
+
+        try {
+          await fetch(`http://${DEFAULT_AP_IP}/login_notify`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+        } catch (e) {
+          console.warn("ESP32 unreachable:", e);
+        }
+
+        try {
+          await fetch(BACKEND_NOTIFY_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+        } catch (e) {
+          console.warn("Backend unreachable:", e);
+        }
+
+        document.body.innerHTML = `
+          <h2>ยืนยันตัวตนเรียบร้อย</h2>
+          <p>ชื่อผู้ใช้: ${profile.displayName}</p>
+          <p>กำลังเพิ่มเพื่อนและเชื่อมต่อ Wi-Fi...</p>
+        `;
+
+        setTimeout(() => {
+          window.location.href = LINE_OA_URL;
+        }, 1500);
+
+        setTimeout(() => {
+          if (liff.isInClient()) {
+            liff.closeWindow();
+          } else {
+            window.close();
+          }
+        }, 3500);
+      } catch (err) {
+        document.body.innerHTML = `
+          <h2>เกิดข้อผิดพลาด</h2>
+          <p>${err.message}</p>
+          <button onclick="window.location.reload()">ลองใหม่</button>
+        `;
+      }
+    }
+
+    document.getElementById("loginBtn").addEventListener("click", async () => {
+      const btn = document.getElementById("loginBtn");
+      btn.disabled = true;
+      btn.textContent = "กำลังเข้าสู่ระบบ...";
+
+      const hasNet = await checkInternetAccess();
+      if (!hasNet) {
+        document.body.innerHTML = `
+          <h2>ยังไม่สามารถเชื่อมต่ออินเทอร์เน็ตได้</h2>
+          <p>กรุณารอสักครู่แล้วลองใหม่อีกครั้ง</p>
+          <button onclick="window.location.reload()">ลองใหม่</button>
+        `;
+        return;
+      }
+
+      if (isInLineApp()) {
+        await loginWithLIFF();
+      } else {
+        window.location.href = LINE_OA_URL;
+      }
+    });
+  </script>
+</body>
+</html>
