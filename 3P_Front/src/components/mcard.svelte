@@ -2,8 +2,10 @@
     import {coupon} from "../coupon.svelte";
 
     interface list {
+        _id : string;
         name: string;
-        line: string;
+        userId: string;
+        timestamp: string;
         selected: boolean;
     }
 
@@ -17,20 +19,16 @@
 
     let checkedAll: boolean = $state(false);
 
-    let customers: list[] = $state([
-        { name: 'สมชาย ใจดี', line: 'somchai123', selected: false },
-        { name: 'สมหญิง สวยงาม', line: 'somying456', selected: false },
-        { name: 'สมปอง รวยเร็ว', line: 'sompong789', selected: false },
-        { name: 'สมศรี มีสุข', line: 'somsri101', selected: false },
-        { name: 'สมบัติ ทองคำ', line: 'sombat202', selected: false },
-        { name: 'สมฤดี แสนดี', line: 'somrudee303', selected: false },
-        { name: 'สมพงษ์ แข็งแรง', line: 'sompong404', selected: false },
-        { name: 'สมใจ ปรารถนา', line: 'somjai505', selected: false },
-        { name: 'สมฤทัย สดใส', line: 'somruthai606', selected: false },
-        { name: 'สมศักดิ์ เจริญรุ่งเรือง', line: 'somsak707', selected: false },
-        { name: 'สมคิด คิดดีทำดี', line: 'somkid808', selected: false },
-        { name: 'สมจิตร ใจงาม', line: 'somjit909', selected: false },
-    ])
+    let customers: list[] = $state([]);
+
+    async function fetchCustomers() {
+        const response = await fetch("http://localhost:3000/api/customer/details");
+        const data = await response.json();
+        customers = data.map( (customer: { _id: string; name: string; userId: string; timestamp: string; }) => ({
+            ...customer,
+            selected: false
+        }));
+    }
 
     function toggleCheckbox(index: number) {
         customers[index].selected = !customers[index].selected;
@@ -61,7 +59,7 @@
 
       alert("send coupon successfully");
     }
-    // $inspect(customers);
+    $inspect(customers);
 
 </script>
 
@@ -84,7 +82,6 @@
                 class="w-10 h-10 rounded-full flex-shrink-0 border-gray-200 border-2"/>
                 <div class="flex flex-col ml-3">
                 <p class="font-medium text-gray-800">{customer.name}</p>
-                <p class="text-sm text-gray-500">{customer.line}</p>
                 </div>
             </div>
             <input type="checkbox" checked={customer.selected} class="form-checkbox h-5 w-5 text-blue-600 rounded" onclick={() => toggleCheckbox(index)}/>
@@ -124,6 +121,7 @@
         focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
         transition-all
       "
+      onclick={() => fetchCustomers()}
     >
       รีเฟรช
     </button>

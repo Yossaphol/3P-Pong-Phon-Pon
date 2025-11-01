@@ -3,15 +3,24 @@
     import Test from '../components/test.svelte';
     import favicon from '$lib/assets/favicon.svg';
     import tail from '../tailwind-css.svg';
+    import p1 from '../67070100.jpeg';
+    import p2 from '../67070118.jpg';
+    import p3 from '../67070145.jpg';
+    import p4 from '../67070166.jpg';
+    import img2 from '../IMG_6180.jpg';
+    import img3 from '../IMG_6181.jpg';
 
-    let mainImg:HTMLDivElement;
+    let mainImg:HTMLElement;
     let isFading = false; // state ควบคุม fade
     async function changeImg(index:number) {
       isFading = true;
-      if (index == 1) {
+      if (index == 2) {
         await new Promise((r) => setTimeout(r, 300));
-        mainImg.style = 
-        "background-image: url(https://images.squarespace-cdn.com/content/v1/60f1a490a90ed8713c41c36c/1629223610791-LCBJG5451DRKX4WOB4SP/37-design-powers-url-structure.jpeg)";
+        // mainImg.src = '../IMG_6180.jpg';
+      }
+      else if (index == 3) {
+        await new Promise((r) => setTimeout(r, 300));
+        // mainImg.src = '../IMG_6181.jpg';
       }
       isFading = false;
     }
@@ -35,20 +44,20 @@
       <!-- Project Details Section 1 -->
       <section class="bg-white rounded-lg shadow-xl p-8 mb-12 border border-gray-200">
         <h3 class="text-2xl font-semibold text-gray-800 mb-6">รายละเอียด</h3>
-        <p class="text-gray-700 leading-relaxed mb-6">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.
-          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
-        </p>
+        <p class="text-gray-700 leading-relaxed mb-6">&nbsp;&nbsp;&nbsp;โครงงานนี้มีวัตถุประสงค์เพื่อพัฒนา ระบบ Captive Portal สำหรับการยืนยันตัวตนผ่าน LINE บนบอร์ด ESP32 โดยให้ ESP32 ทำหน้าที่เป็น เราเตอร์ขนาดเล็ก (NAT Router) ที่สามารถปล่อยสัญญาณ Wi-Fi ให้ผู้ใช้งานเชื่อมต่อ และบังคับให้เข้าสู่หน้าเข้าสู่ระบบ (Login Page) ก่อนใช้งานอินเทอร์เน็ตได้จริง ระบบถูกออกแบบให้มีการ เชื่อมต่อกับแพลตฟอร์ม LINE เพื่อใช้เป็นช่องทางในการยืนยันตัวตนของผู้ใช้ โดยเมื่อผู้ใช้ทำการ Login ผ่าน LINE สำเร็จ ข้อมูลผู้ใช้ เช่น userId และ displayName จะถูกส่งกลับมายัง ESP32 ผ่าน MQTT Broker เพื่อให้ ESP32 เปิดการใช้งานอินเทอร์เน็ตแบบถาวร พร้อมทั้งแสดงชื่อผู้ใช้บนจอ LCD และส่งเสียงแจ้งเตือนผ่าน Buzzer</p>
+        <p class="text-gray-700 leading-relaxed mb-6">&nbsp;&nbsp;&nbsp;ประโยชน์ของโครงงานนี้คือสามารถนำไปใช้ในร้านค้า ร้านกาแฟ หรือพื้นที่บริการสาธารณะ เพื่อควบคุมการเข้าใช้งาน Wi-Fi พร้อมเก็บข้อมูลลูกค้าและส่งโปรโมชั่นผ่าน LINE OA ได้โดยอัตโนมัติ อีกทั้งยังเป็นการต่อยอดขีดความสามารถของ ESP32 ให้เป็น Gateway อัจฉริยะ (Smart IoT Gateway) ที่รวม NAT, DNS, HTTP, MQTT, LCD และระบบแจ้งเตือนไว้ในอุปกรณ์เดียว ช่วยลดต้นทุนและเพิ่มความสะดวกในการติดตั้งใช้งานจริง </p>
 
         <!-- Image Carousel/Gallery Placeholder -->
-        <div class="bg-gray-300">
-          <div class:opacity-0={isFading} bind:this={mainImg} class="transition-opacity duration-500 ease-in-out relative w-full h-80  rounded-lg flex items-center justify-between p-4 mb-2 bg-center bg-contain bg-no-repeat"></div>
+        <div class="bg-gray-300 rounded-s-md mb-6">
+          <img class:opacity-0={isFading} bind:this={mainImg} class="transition-opacity duration-500 ease-in-out relative w-full rounded-lg flex items-center justify-between mb-2 bg-center bg-contain bg-no-repeat" src={img2} alt="img">
         </div>
 
         <div class="flex justify-center space-x-4">
-          <button onclick={() => changeImg(1)} class="thumbnail w-20 h-12 rounded-md cursor-pointer transition-colors duration-200">
-            <img class="rounded-md" src="https://images.squarespace-cdn.com/content/v1/60f1a490a90ed8713c41c36c/1629223610791-LCBJG5451DRKX4WOB4SP/37-design-powers-url-structure.jpeg" alt="">
+          <button onclick={() => changeImg(2)} class="thumbnail w-20 h-12 rounded-md cursor-pointer transition-colors duration-200">
+            <img class="rounded-md " src={img2} alt="">
+          </button>
+          <button onclick={() => changeImg(3)} class="thumbnail w-20 h-12 rounded-md cursor-pointer transition-colors duration-200">
+            <img class="rounded-md" src={img3} alt="">
           </button>
         </div>
 
@@ -58,34 +67,46 @@
       <section class="bg-white rounded-lg shadow-xl p-8 mb-12 border border-gray-200">
         <h3 class="text-2xl font-semibold text-gray-800 mb-6">จุดเด่นของโปรเจกต์</h3>
         <p class="text-gray-700 leading-relaxed mb-6">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.
-          Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. In porta dapibus egestas.
-          Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In non orci eu purus porttitor egestas. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat.
-          Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus. Nulla facilisi. Proin volutpat sem at metus egestas non tristique nunc scelerisque. Ut at ligula quis purus dignissim molestie. Nam mattis, libero in feugiat.
-          Morbi vitae felis nec lectus pharetra dictum. Cras in velit vitae elit imperdiet bibendum. Nunc elementum dui vitae lectus lacinia ac tristique ante pulvinar. Ut non elit a mi ullamcorper.
+          การดำเนินงานเริ่มจากการนำโปรเจกต์ต้นฉบับ esp32_nat_router มาปรับปรุง โดยเพิ่มฟังก์ชันสำคัญ ได้แก่ DNS Hijack, Captive Portal Server, Temporary NAT Control, และ User Event Handler เพื่อควบคุมการทำงานของ LCD, Buzzer และ MQTT เมื่อมีการ Login สำเร็จ ESP32 จะทำหน้าที่เป็นทั้ง SoftAP, NAT Router, DNS Server และ HTTP Server ที่แสดงหน้าเว็บ Captive Portal สำหรับ Login ด้วย LINE LIFF นอกจากนี้ ยังมีการพัฒนา Backend บน Node.js เพื่อเชื่อมต่อกับ LINE Developer Platform ทำหน้าที่รับ Callback จาก LINE, ขอ Access Token, ดึงข้อมูลผู้ใช้ และส่งข้อมูลกลับมายัง ESP32 ผ่าน MQTT 
         </p>
-        <ul class="list-disc list-inside text-gray-700 leading-relaxed space-y-2 pl-4">
-            <li>Feature 1: Enhanced User Experience</li>
-            <li>Feature 2: Scalable Architecture</li>
-            <li>Feature 3: Robust Security Measures</li>
-            <li>Feature 4: Seamless Integration</li>
-            <li>Feature 5: Comprehensive Reporting</li>
-            <li>Feature 6: Multi-language Support</li>
-            <li>Feature 7: Automated Workflows</li>
-            <li>Feature 8: Real-time Analytics Dashboard</li>
-        </ul>
       </section>
 
       <!-- Project Details Section 3 (เพิ่มความยาวของหน้า) -->
       <section class="bg-white rounded-lg shadow-xl p-8 mb-12 border border-gray-200">
-        <h3 class="text-2xl font-semibold text-gray-800 mb-6">เทคโนโลยีที่ใช้</h3>
-        <p class="text-gray-700 leading-relaxed mb-6">
-          Fusce non enim ut enim consectetur fermentum. Aenean vitae arcu ut ipsum blandit ultrices.
-          Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed dictum sapien quis felis ullamcorper, vel scelerisque orci faucibus.
-          Maecenas id nisi eu mi efficitur convallis vel nec nunc. Etiam facilisis est a massa tincidunt volutpat.
-          Donec bibendum ex vitae eros bibendum, eu pharetra turpis viverra.
-          Nulla facilisi. Integer vel nisl nec tortor convallis ullamcorper. In hac habitasse platea dictumst.
-        </p>
+        <h3 class="text-2xl font-semibold text-gray-800 mb-2">อุปกรณ์และเทคโนโลยีที่ใช้</h3>
+        <div class="px-8 py-2">
+          <li>ESP-IDF (Espressif IoT Development Framework) v4.4.6</li>
+          <li>xtensa-esp32-elf toolchain</li>
+          <li>esp_wifi.h, esp_netif.h, esp_event.h – for Wifi</li>
+          <li>lwip_napt.h, ip_addr.h – for NAT</li>
+          <li>sockets.h, dns_hijack – for DNS</li>
+          <li>dhcpserver.h, dhcpserver_options.h – for DHCP</li>
+          <li>esp_http_server.h – for HTTP</li>
+          <li>I2C Driver</li>
+          <li>MQTT Client</li>
+          <li>FreeRTOS</li>
+          <li>NVS (Non-Volatile Storage)</li>
+          <li>Ngrok</li>
+          <li>Line platform</li>
+        </div>
+        <h3 class="text-2xl font-semibold text-gray-800 mb-2">ขั้นตอนการทำงาน</h3>
+        <div class="px-2 py-2">
+          <ol class="list-decimal list-inside text-gray-700 leading-relaxed space-y-2 pl-4">
+            <li>เริ่มต้นการทำงาน ESP32 เชื่อมต่อกับ STA และเริ่มทำงานเป็น access point หน้าจอ LCD แสดงข้อความ “Router starting…” buzzer ส่งเสียงดัง ปิ๊บๆ </li>
+            <li>เปิด NAT และ DNS hijack หน้าจอ LCD แสดงข้อความ “Network Ready” , “PongPhonpon Wifi” buzzer ส่งเสียงดัง ปิ๊บๆ </li>
+            <li>Captive portal server เริ่มการทำงาน</li>
+            <li>ผู้ใช้เชื่อมต่อ Wifi DNS ตอบทุก domain ชี้ไปที่ 192.168.4.1 </li>
+            <li>แสดงหน้า login ใน captive portal</li>
+            <li>ESP32 เปิด NAT ชั่วคราว 3 นาที เพื่อให้ผู้ใช้ออกเน็ตได้ </li>
+            <li>ผู้ใช้กด Login Line และถูก redirect ไปที่ browser จริงก่อนระบบจะเปิดแอพ line ขึ้นมาให้ผู้ใช้ login </li>
+            <li>ผู้ใช้กดปุ่ม login line และเพิ่มเพื่อน LINE OA ของร้าน จากนั้นระบบแสดงหน้า chat ของ LINE OA </li>
+            <li>Backend ส่งข้อมูลผู้ใช้ขึ้นไปที่ MQTT broker </li>
+            <li>ESP32 รับ MQTT message แล้วตรวจสอบข้อมูลผู้ใช้ </li>
+            <li>LCD แสดงข้อความ “username”, “Friend added!” และ buzzer ส่งเสียง ปิ๊บๆ </li>
+            <li>ESP32 เปิด NAT ถาวรให้ผู้ใช้และจบการทำงาน </li>
+          </ol>
+        </div>
+
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             <div class="flex items-center space-x-3 bg-gray-50 p-4 rounded-md shadow-sm">
                 <img src={favicon} alt="Svelte" class="w-8 h-8"/>
@@ -109,34 +130,34 @@
 
       <!-- Project Details Section 4 (เพิ่มความยาวของหน้า) -->
       <section class="bg-white rounded-lg shadow-xl p-8 mb-12 border border-gray-200">
-        <h3 class="text-2xl font-semibold text-gray-800 mb-6">ทีมผู้พัฒนา</h3>
+        <h3 class="text-2xl font-semibold text-gray-800 mb-6">ผู้พัฒนา</h3>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <div class="flex items-center space-x-4 bg-gray-50 p-4 rounded-md shadow-sm">
-                <img class="h-16 w-16 rounded-full object-cover" src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=4&w=144&h=144&q=80" alt="Team Member 1">
+                <img class="h-16 w-16 rounded-full object-cover" src={p1} alt="Team Member 1">
                 <div>
-                    <div class="text-lg font-semibold text-gray-900">John Doe</div>
-                    <div class="text-sm text-gray-600">Project Lead</div>
+                    <div class="text-lg font-semibold text-gray-900">นายปองพล บุรีรักษ์</div>
+                    <div class="text-sm text-gray-600">67070100</div>
                 </div>
             </div>
             <div class="flex items-center space-x-4 bg-gray-50 p-4 rounded-md shadow-sm">
-                <img class="h-16 w-16 rounded-full object-cover" src="https://images.unsplash.com/photo-1494790108377-be9c29b29329?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=4&w=144&h=144&q=80" alt="Team Member 2">
+                <img class="h-16 w-16 rounded-full object-cover" src={p2} alt="Team Member 2">
                 <div>
-                    <div class="text-lg font-semibold text-gray-900">Jane Smith</div>
-                    <div class="text-sm text-gray-600">Frontend Developer</div>
+                    <div class="text-lg font-semibold text-gray-900">นายพิภพ ทองอั้น</div>
+                    <div class="text-sm text-gray-600">67070118</div>
                 </div>
             </div>
             <div class="flex items-center space-x-4 bg-gray-50 p-4 rounded-md shadow-sm">
-                <img class="h-16 w-16 rounded-full object-cover" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=4&w=144&h=144&q=80" alt="Team Member 3">
+                <img class="h-16 w-16 rounded-full object-cover" src={p3} alt="Team Member 3">
                 <div>
-                    <div class="text-lg font-semibold text-gray-900">Peter Jones</div>
-                    <div class="text-sm text-gray-600">Backend Developer</div>
+                    <div class="text-lg font-semibold text-gray-900">นายยศพนธ์ มโนวรกุล</div>
+                    <div class="text-sm text-gray-600">67070145</div>
                 </div>
             </div>
             <div class="flex items-center space-x-4 bg-gray-50 p-4 rounded-md shadow-sm">
-                <img class="h-16 w-16 rounded-full object-cover" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=4&w=144&h=144&q=80" alt="Team Member 3">
+                <img class="h-16 w-16 rounded-full object-cover" src={p4} alt="Team Member 3">
                 <div>
-                    <div class="text-lg font-semibold text-gray-900">Peter Jones</div>
-                    <div class="text-sm text-gray-600">Backend Developer</div>
+                    <div class="text-lg font-semibold text-gray-900">นายวิรยบวร บุญเปรี่ยม</div>
+                    <div class="text-sm text-gray-600">67070166</div>
                 </div>
             </div>
         </div>
@@ -148,22 +169,22 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
                 <h4 class="text-xl font-medium text-green-700 mb-3">ข้อดี (Advantages)</h4>
-                <ul class="list-disc list-inside text-gray-700 leading-relaxed space-y-2 pl-4">
-                    <li>Improved efficiency in promotion management.</li>
-                    <li>Centralized customer data for targeted campaigns.</li>
-                    <li>User-friendly interface for easy navigation.</li>
-                    <li>Scalable to accommodate future growth.</li>
-                    <li>Real-time tracking of promotion performance.</li>
+                <ul class="list-disc list-inside text-gray-700 space-y-1 pl-4 leading-relaxed">
+                    <li>เพิ่มความสะดวกและประสบการณ์ที่ดี โดยผู้ใช้ไม่ต้องกรอก username/password แค่กด login ด้วย line ก็สามารถเข้าถึงอินเทอร์เน็ตได้ทันที</li>
+                    <li>ระบบจะได้ userid จากการ login ของลูกค้าและทำให้สามารถเพิ่มเพื่อนอันโนมัติใน LINE Official Account</li>
+                    <li>ยกระดับ wifi free เป็นช่องทางทำการตลาดที่มีฐานข้อมูลผู้ใช้จริง</li>
+                    <li>ร้านค้าสามารถส่งโปรโมชั่น, คูปอง หรือข่าวสารต่างๆให้ลูกค้าทั้งหมดหรือสามารถเลือกส่งเฉพาะบุคคลได้ เป็นการลดภาระของพนักงานในการแนะนำโปรโมชั่นทั้งหมดของร้าน</li>
+                    <li>ลูกค้าสามารถติดต่อสื่อสารกับร้านค้าโดยตรงได้ผ่าน LINE OA ของร้าน</li>
+                    <li>ร้านค้าสามารถนำข้อมูลจาก ESP32 คือ userid และ mac address มาวิเคราะห์จำนวนผู้ใช้ ความถี่ในการเข้าใช้งาน หรือพฤติกรรมของลูกค้า ช่วยให้ร้านค้าสามารถวิเคราะห์ลูกค้าประจำร้านและสร้างระบบสะสมแต้มหรือส่วนลดได้</li>
+                    <li>ช่วยขยายความสามารถของ ESP32 ให้เป็น Gateway อัจฉริยะที่สามารถทำหน้าที่เป็น Nat router, DNS server, HTTP captive portal, Display controller และ Notification System</li>
+                    <li>ลดต้นทุนในการสร้างระบบ captive portal สำหรับร้านค้าขนาดเล็ก ใช้เพียงบอร์ด ESP32 ติดตั้งง่าย ใช้งานได้ทันที ไม่ต้องซื้อ router หรือ License Portal Server ราคาแพง</li>
                 </ul>
             </div>
             <div>
                 <h4 class="text-xl font-medium text-red-700 mb-3">ข้อจำกัด (Limitations)</h4>
                 <ul class="list-disc list-inside text-gray-700 leading-relaxed space-y-2 pl-4">
-                    <li>Requires initial data migration from existing systems.</li>
-                    <li>Potential learning curve for new users.</li>
-                    <li>Dependency on third-party integrations for advanced features.</li>
-                    <li>Performance may vary with extremely large datasets.</li>
-                    <li>Customization options are limited to defined parameters.</li>
+                    <li>เมื่อมือถือเปิด captive portal ขึ้นมาจะเป็นลักษณะของ sandbox ซึ่งปิดการเรียก app จากภายนอกทำให้ไม่สามารถที่จะเปิด line:// ได้และไม่สามารถเปิด OAuth ที่ต้อง redirect ออกไปที่ access.line.me ได้ทำให้เมื่อกดปุ่ม login with line จะค้างอยู่ที่หน้าเดิมการแก้ปัญหา : เพิ่มการ redirect ไปที่ browser จริงก่อน โดยเมื่อผู้ใช้กดปุ่ม login with line หน้า captive portal จะถูกปิดและจะ redirect ไปที่ browser จริงแทน ซึ่งในหน้า browser จะสามารเรียกแอพจากภายนอกได้ ทำให้ line จะถูกเปิดขึ้นมาให้ผู้ใช้ทำการ login ให้เสร็จสิ้นได้</li>
+                    <li>เมื่อใช้ ESP32 ในโหมด SoftAP และ Station พร้อมกัน อุปกรณ์จะต้องทั้งเชื่อมต่อเราเตอร์หลักเพื่อออกอินเทอร์เน็ต และปล่อยสัญญาณ Wi-Fi ให้ลูกข่ายในเวลาเดียวกัน แต่เนื่องจาก ESP32 มีวิทยุ Wi-Fi เพียงตัวเดียว จึงต้องแบ่งเวลาในการสื่อสารระหว่างสองหน้าที่นี้ ทำให้แบนด์วิดธ์ที่มีอยู่ถูกแบ่งออก และความเร็วอินเทอร์เน็ตของผู้ใช้ที่เชื่อมต่อผ่าน ESP32 ลดลง</li>
                 </ul>
             </div>
         </div>
@@ -172,7 +193,7 @@
       <!-- ส่วนปิดท้าย (Footer) สามารถเพิ่มได้อีก -->
       <footer class="text-center py-10 text-gray-600">
         <p>&copy; 3P PongPhonPon. All rights reserved.</p>
-        <p>ชื่ออาจารย์</p>
+        <p>Assoc. Prof. Dr. Panwit Tuwanut</p>
       </footer>
 
     </div>
