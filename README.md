@@ -18,7 +18,12 @@ Wi-Fi ให้ผู้ใช้งานเชื่อมต่อ และ�
 ![esp32](./images/esp.jpg)
 ### จุดเด่นของโปรเจกต์
 การดำเนินงานเริ่มจากการนำโปรเจกต์ต้นฉบับ esp32_nat_router มาปรับปรุง โดยเพิ่มฟังก์ชันสำคัญ ได้แก่ DNS Hijack, Captive Portal Server, Temporary NAT Control, และ User Event Handler เพื่อควบคุมการทำงานของ LCD, Buzzer และ MQTT เมื่อมีการ Login สำเร็จ ESP32 จะทำหน้าที่เป็นทั้ง SoftAP, NAT Router, DNS Server และ HTTP Server ที่แสดงหน้าเว็บ Captive Portal สำหรับ Login ด้วย LINE LIFF นอกจากนี้ ยังมีการพัฒนา Backend บน Node.js เพื่อเชื่อมต่อกับ LINE Developer Platform ทำหน้าที่รับ Callback จาก LINE, ขอ Access Token, ดึงข้อมูลผู้ใช้ และส่งข้อมูลกลับมายัง ESP32 ผ่าน MQTT
-### อุปกรณ์และเทคโนโลยีที่ใช้
+### อุปกรณ์ที่ใช้
+| ESP32 CH340 | Buzzer | LCD | Jumper Wire | Breadboard
+|---|---|---|---|---|
+| <img src="[https://raw.githubusercontent.com/username/repo/main/images/uno.jpg](https://drive.google.com/file/d/1Ssscy-nWH8Yp7vKmoggFUpBsE19Zp-mb/view?usp=sharing)"> | <img src="[https://raw.githubusercontent.com/username/repo/main/images/hcsr04.jpg](https://drive.google.com/file/d/1aSZS8WFyPIdzBJ6c5szGC4FdmSH3TvUx/view?usp=sharing)"> | <img src="[https://raw.githubusercontent.com/username/repo/main/images/servo.jpg](https://drive.google.com/file/d/1V6OIvM2LYUt2lSnC9w3RKFyt0AxfDia8/view?usp=sharing)"> | <img src="[[https://raw.githubusercontent.com/username/repo/main/images/servo.jpg](https://drive.google.com/file/d/1V6OIvM2LYUt2lSnC9w3RKFyt0AxfDia8/view?usp=sharing)](https://drive.google.com/file/d/1TyC4r-GI8VFTjLm7CWoJdsT1_aRgCtp5/view?usp=sharing)"> | <img src="[[https://raw.githubusercontent.com/username/repo/main/images/servo.jpg](https://drive.google.com/file/d/1V6OIvM2LYUt2lSnC9w3RKFyt0AxfDia8/view?usp=sharing)](https://drive.google.com/file/d/14doEc2GkYXbkokvavC49-3WPWI6SQ-zc/view?usp=sharing)"> |
+
+### Tool/Library
 - ESP-IDF (Espressif IoT Development Framework) v4.4.6
 - xtensa-esp32-elf toolchain
 - esp_wifi.h, esp_netif.h, esp_event.h – for Wifi
