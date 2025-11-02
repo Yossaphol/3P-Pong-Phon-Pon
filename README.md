@@ -21,7 +21,7 @@ Wi-Fi ให้ผู้ใช้งานเชื่อมต่อ และ�
 ### อุปกรณ์ที่ใช้
 | ESP32 CH340 | Buzzer | LCD | Jumper Wire | Breadboard
 |---|---|---|---|---|
-| <img src="[https://raw.githubusercontent.com/username/repo/main/images/uno.jpg](https://drive.google.com/file/d/1Ssscy-nWH8Yp7vKmoggFUpBsE19Zp-mb/view?usp=sharing)"> | <img src="[https://raw.githubusercontent.com/username/repo/main/images/hcsr04.jpg](https://drive.google.com/file/d/1aSZS8WFyPIdzBJ6c5szGC4FdmSH3TvUx/view?usp=sharing)"> | <img src="[https://raw.githubusercontent.com/username/repo/main/images/servo.jpg](https://drive.google.com/file/d/1V6OIvM2LYUt2lSnC9w3RKFyt0AxfDia8/view?usp=sharing)"> | <img src="[[https://raw.githubusercontent.com/username/repo/main/images/servo.jpg](https://drive.google.com/file/d/1V6OIvM2LYUt2lSnC9w3RKFyt0AxfDia8/view?usp=sharing)](https://drive.google.com/file/d/1TyC4r-GI8VFTjLm7CWoJdsT1_aRgCtp5/view?usp=sharing)"> | <img src="[[https://raw.githubusercontent.com/username/repo/main/images/servo.jpg](https://drive.google.com/file/d/1V6OIvM2LYUt2lSnC9w3RKFyt0AxfDia8/view?usp=sharing)](https://drive.google.com/file/d/14doEc2GkYXbkokvavC49-3WPWI6SQ-zc/view?usp=sharing)"> |
+| <img src="./images/esp32.jpg"> | <img src="./images/buzzer.jpg"> | <img src="./images/LCD.jpg"> | <img src="./images/wire.jpg"> | <img src="./images/board.jpg"> |
 
 ### Tool/Library
 - ESP-IDF (Espressif IoT Development Framework) v4.4.6
