@@ -22,7 +22,7 @@
     let customers: list[] = $state([]);
 
     async function fetchCustomers() {
-        const response = await fetch("http://localhost:3000/api/customer/details");
+        const response = await fetch("https://temp-back-phycom-proj.vercel.app/details");
         const data = await response.json();
         customers = data.map( (customer: { _id: string; name: string; userId: string; timestamp: string; }) => ({
             ...customer,
@@ -51,7 +51,7 @@
 
       console.log("Sending coupon data:", couponData);
 
-      await fetch("http://localhost:3000/send-coupon", {
+      await fetch("https://temp-back-phycom-proj.vercel.app/send-coupon", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(couponData)
