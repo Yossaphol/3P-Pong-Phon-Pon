@@ -61,7 +61,7 @@ Wi-Fi ให้ผู้ใช้งานเชื่อมต่อ และ�
 
 ---
 
-### Resources
+## Resources
 #### Website github.io
 [github.io](https://bureerak.github.io/3P/)
 
