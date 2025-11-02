@@ -47,6 +47,12 @@
       <!-- Project Details Section 1 -->
       <section class="bg-white rounded-lg shadow-xl p-8 mb-12 border border-gray-200">
         <iframe class="mx-auto w-9/10 h-48 md:h-100 lg:h-150 mb-4 rounded-lg" src="https://www.youtube.com/embed/FyEzlFBqOGs?si=VTTOl8uyEW5gmaRC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <div class="text-center">
+          <a href="https://github.com/Yossaphol/3P-Pong-Phon-Pon" target="_blank" class=" mx-auto mb-2 text-white hover:underline inline-flex items-center font-bold bg-gray-600 px-4 py-2 rounded-3xl text-lg shadow-sm hover:bg-gray-800 transition-colors duration-200">
+            <img src="https://img.icons8.com/color/48/000000/github.png" alt="GitHub" class="w-8 h-8 inline-block mr-2"/>
+            Source Code
+          </a>
+        </div>
         <h3 class="text-2xl font-semibold text-gray-800 mb-6">รายละเอียด</h3>
         <p class="text-gray-700 leading-relaxed mb-6">&nbsp;&nbsp;&nbsp;โครงงานนี้มีวัตถุประสงค์เพื่อพัฒนา ระบบ Captive Portal สำหรับการยืนยันตัวตนผ่าน LINE บนบอร์ด ESP32 โดยให้ ESP32 ทำหน้าที่เป็น เราเตอร์ขนาดเล็ก (NAT Router) ที่สามารถปล่อยสัญญาณ Wi-Fi ให้ผู้ใช้งานเชื่อมต่อ และบังคับให้เข้าสู่หน้าเข้าสู่ระบบ (Login Page) ก่อนใช้งานอินเทอร์เน็ตได้จริง ระบบถูกออกแบบให้มีการ เชื่อมต่อกับแพลตฟอร์ม LINE เพื่อใช้เป็นช่องทางในการยืนยันตัวตนของผู้ใช้ โดยเมื่อผู้ใช้ทำการ Login ผ่าน LINE สำเร็จ ข้อมูลผู้ใช้ เช่น userId และ displayName จะถูกส่งกลับมายัง ESP32 ผ่าน MQTT Broker เพื่อให้ ESP32 เปิดการใช้งานอินเทอร์เน็ตแบบถาวร พร้อมทั้งแสดงชื่อผู้ใช้บนจอ LCD และส่งเสียงแจ้งเตือนผ่าน Buzzer</p>
         <p class="text-gray-700 leading-relaxed mb-6">&nbsp;&nbsp;&nbsp;ประโยชน์ของโครงงานนี้คือสามารถนำไปใช้ในร้านค้า ร้านกาแฟ หรือพื้นที่บริการสาธารณะ เพื่อควบคุมการเข้าใช้งาน Wi-Fi พร้อมเก็บข้อมูลลูกค้าและส่งโปรโมชั่นผ่าน LINE OA ได้โดยอัตโนมัติ อีกทั้งยังเป็นการต่อยอดขีดความสามารถของ ESP32 ให้เป็น Gateway อัจฉริยะ (Smart IoT Gateway) ที่รวม NAT, DNS, HTTP, MQTT, LCD และระบบแจ้งเตือนไว้ในอุปกรณ์เดียว ช่วยลดต้นทุนและเพิ่มความสะดวกในการติดตั้งใช้งานจริง </p>
